@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>client_secret</key>
+	<string>Add your client secret</string>
+	<key>client_secret_staging</key>
+	<string>Add your client secret staging</string>
+	<key>client_id</key>
+	<string>Add your client id</string>
+	<key>client_id_staging</key>
+	<string>Add your client id staging</string>
+	<key>redirect_uri</key>
+	<string>Add your client uri</string>
+</dict>
+</plist>
