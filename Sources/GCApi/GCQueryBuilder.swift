@@ -107,7 +107,7 @@ class GCQueryBuilder: NSObject {
     }
 
     //expand=geocachelogs:5,trackables:
-    func add(logs:Int = 0, logFields:Array<LogFieds> = LogFieds.allCases, trackables: Int = 0, trackableFields:Array<TrackableFieds> = TrackableFieds.allCases) {
+    func add(logs:Int = 0, logFields:Array<LogFieds> = LogFieds.allCases, trackables: Int = 0, trackableFields:Array<TrackableFieds> = TrackableFieds.allCases, userwaypoints: Int = 0, userWaypointFields:Array<UserWaypointFields> = UserWaypointFields.allCases,) {
         guard var fieldsString = getParameter(param: "fields") else {
             assert(false, "You must first call add fields")
             return
@@ -121,6 +121,10 @@ class GCQueryBuilder: NSObject {
         if trackables > 0 {
             fieldsString.append(contentsOf: ",trackables[\(createFieldArray(fields: trackableFields))]")
             expandStrings.append("trackables:\(trackables)")
+        }
+        if userwaypoints > 0 {
+            fieldsString.append(contentsOf: ",userwaypoints[\(createFieldArray(fields: userWaypointFields))]")
+            expandStrings.append("userwaypoints:\(trackables)")
         }
         if expandStrings.count > 0 {
             addFragment(key: "fields", value: fieldsString)

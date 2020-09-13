@@ -50,10 +50,10 @@ public enum LocationFields : String, CaseIterable {
 }
 
 public class LocationModel:Codable {
-    let countryId:Int?   //id of country
-    let country:String?   //display name of country
-    let stateId:Int?   //id of state
-    let state:String?   //display name of state
+    public let countryId:Int?   //id of country
+    public let country:String?   //display name of country
+    public let stateId:Int?   //id of state
+    public let state:String?   //display name of state
 }
 
 public enum SizeFields : String, CaseIterable {
@@ -296,7 +296,7 @@ public class GeocacheNoteModel: NSObject, Codable {
 
 public class GCGeogache: NSObject {
 
-    public static func getCache(cacheCode : String, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, completionHandler: @escaping (Result<GeocacheModel, GCError>) -> Void) {
+    public static func getCache(cacheCode : String, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, userwaypoints: Int = 0, completionHandler: @escaping (Result<GeocacheModel, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "geocaches/\(cacheCode)")
         query.addIsLite(isLite: false)
         query.add(fields: fields)
@@ -313,7 +313,7 @@ public class GCGeogache: NSObject {
         }
     }
 
-    public static func getCaches(cacheCodes : Array<String>, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, isLite:Bool = false, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
+    public static func getCaches(cacheCodes : Array<String>, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, userwaypoints: Int = 0, isLite:Bool = false, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "geocaches")
         query.addRefCodes(refCodes: cacheCodes)
         query.addIsLite(isLite: isLite)
@@ -331,7 +331,7 @@ public class GCGeogache: NSObject {
         }
     }
 
-    public static func searchCaches(centerPoint:CLLocationCoordinate2D, radiusMiles:Int, fields : Array<GeocacheFields> = GeocacheFields.allCases, logs:Int = 0, trackables: Int = 0, skip:Int = 0, take:Int = 0, isLite:Bool = false, cacheTypes: Array<GCGeocacheType> = GCGeocacheType.allCases, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
+    public static func searchCaches(centerPoint:CLLocationCoordinate2D, radiusMiles:Int, fields : Array<GeocacheFields> = GeocacheFields.allCases, logs:Int = 0, trackables: Int = 0, skip:Int = 0, userwaypoints: Int = 0, take:Int = 0, isLite:Bool = false, cacheTypes: Array<GCGeocacheType> = GCGeocacheType.allCases, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "geocaches/search/")
         query.add(centerPoint: centerPoint, radiusMiles: radiusMiles)
         query.addIsLite(isLite: isLite)
@@ -351,7 +351,7 @@ public class GCGeogache: NSObject {
         }
     }
 
-    public static func searchCaches(upperLeft:CLLocationCoordinate2D, lowerRight:CLLocationCoordinate2D, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, skip:Int = 0, take:Int = 50, isLite:Bool = false, cacheTypes: Array<GCGeocacheType>? = GCGeocacheType.allCases, terrainFrom:Int? = nil, terrainTo:Int? = nil, diffFrom:Int? = nil, diffTo:Int? = nil, cacheSizes: Array<CacheSize>? = CacheSize.allCases, minFavouritePoints:Int? = nil, excludeFoundBy:String? = nil, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
+    public static func searchCaches(upperLeft:CLLocationCoordinate2D, lowerRight:CLLocationCoordinate2D, fields : Array<GeocacheFields>, logs:Int = 0, trackables: Int = 0, userwaypoints: Int = 0, skip:Int = 0, take:Int = 50, isLite:Bool = false, cacheTypes: Array<GCGeocacheType>? = GCGeocacheType.allCases, terrainFrom:Int? = nil, terrainTo:Int? = nil, diffFrom:Int? = nil, diffTo:Int? = nil, cacheSizes: Array<CacheSize>? = CacheSize.allCases, minFavouritePoints:Int? = nil, excludeFoundBy:String? = nil, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "geocaches/search/")
         query.add(upperLeft: upperLeft, lowerRight: lowerRight)
         query.addIsLite(isLite: isLite)
