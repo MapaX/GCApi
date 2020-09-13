@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum FriendRequestFields : String, CaseIterable {
+public enum FriendRequestFields : String, CaseIterable {
     case id = "id"
     case requestorUserCode = "requestorUserCode"
     case requestor = "requestor"
@@ -18,6 +18,6 @@ enum FriendRequestFields : String, CaseIterable {
     case isOutgoing = "isOutgoing"
 }
 
-class GCFriend: NSObject {
+public class GCFriend: NSObject {
 
 }

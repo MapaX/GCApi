@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum ListFields : String, CaseIterable {
+public enum ListFields : String, CaseIterable {
     case referenceCode = "referenceCode"
     case lastUpdatedDateUtc = "lastUpdatedDateUtc"
     case createdDateUtc = "createdDateUtc"
@@ -23,12 +23,12 @@ enum ListFields : String, CaseIterable {
     case url = "url"
 }
 
-enum ListGeocacheFields : String, CaseIterable {
+public enum ListGeocacheFields : String, CaseIterable {
     case referenceCode = "referenceCode"
     case name = "name"
 }
 
-enum ListType : Int, Codable {
+public enum ListType : Int, Codable {
     case PocketQuery = 1
     case Bookmark = 2
     case Ignore = 3
@@ -36,7 +36,7 @@ enum ListType : Int, Codable {
     case Favorites = 5
 }
 //    the type of lists to return. options are fl (favorites list), wl (watch list), il (ignore list), bm (bookmark list), pq (pocket query)
-enum ListTypeName : String, Codable, CaseIterable {
+public enum ListTypeName : String, Codable, CaseIterable {
     case PocketQuery = "pq"
     case Bookmark = "bm"
     case Ignore = "il"
@@ -45,35 +45,35 @@ enum ListTypeName : String, Codable, CaseIterable {
 }
 
 
-class ListModel: Codable {
-    let referenceCode:String? //uniquely identifies the list    No    No
-    let createdDateUtc:Date? //when the list was created in UTC    No    No
-    let lastUpdatedDateUtc:Date? //when the list was last updated in UTC. for pocket queries, this represents the last time the query was generated    No    No
-    let name:String?  //display name of the list    Yes    Yes
-    let count:Int? //how many geocaches are in the list    No    No
-    let findCount:Int? //how many of the geocaches in list are found    No    No
-    let ownerCode:String? //identifier of the user who owns the list    No    No
-    let description:String? //text about the list    No    Yes
-    let typeId: ListType? //type of the list (see List Types for more info)    No (defaults to bookmark list type)    No
-    let isShared: Bool? //if the list is accessible through a direct link    Yes    Yes
-    let isPublic: Bool? //if the list is accessible to everyone without a direct link    Yes    Yes
-    let url: String? //geocaching.com web page associated with list (no url returned for pocket query types)    No    No
+public class ListModel: Codable {
+    public let referenceCode:String? //uniquely identifies the list    No    No
+    public let createdDateUtc:Date? //when the list was created in UTC    No    No
+    public let lastUpdatedDateUtc:Date? //when the list was last updated in UTC. for pocket queries, this represents the last time the query was generated    No    No
+    public let name:String?  //display name of the list    Yes    Yes
+    public let count:Int? //how many geocaches are in the list    No    No
+    public let findCount:Int? //how many of the geocaches in list are found    No    No
+    public let ownerCode:String? //identifier of the user who owns the list    No    No
+    public let description:String? //text about the list    No    Yes
+    public let typeId: ListType? //type of the list (see List Types for more info)    No (defaults to bookmark list type)    No
+    public let isShared: Bool? //if the list is accessible through a direct link    Yes    Yes
+    public let isPublic: Bool? //if the list is accessible to everyone without a direct link    Yes    Yes
+    public let url: String? //geocaching.com web page associated with list (no url returned for pocket query types)    No    No
 }
 
-class BulkFailureObject: Codable {
-    let referenceCode: String?
-    let message: String?
-    let statusCode: Int?
+public class BulkFailureObject: Codable {
+    public let referenceCode: String?
+    public let message: String?
+    public let statusCode: Int?
 }
 
-class BulkResponseObject: Codable {
-    let successes: Array<String>?
-    let failures: Array<BulkFailureObject>?
+public class BulkResponseObject: Codable {
+    public let successes: Array<String>?
+    public let failures: Array<BulkFailureObject>?
 }
 
-class GCList: NSObject {
+public class GCList: NSObject {
     ///identifier of the list (ignore, favorites, or watch can be used as aliases in place of the reference codes to get the calling user's ignore list and watch list).
-    static func getList(referenceCode : String, fields : Array<ListFields>, completionHandler: @escaping (Result<ListModel, GCError>) -> Void) {
+    public static func getList(referenceCode : String, fields : Array<ListFields>, completionHandler: @escaping (Result<ListModel, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "lists/\(referenceCode)")
         query.add(fields: fields)
         GCApi.shared().getData(url: query, parseClass: ListModel.self, payload: "") { (result) in
@@ -88,7 +88,7 @@ class GCList: NSObject {
         }
     }
 
-    static func getUsersList(referenceCode : String = "me",skip:Int = 0, take:Int = 0, listTypes:Array<ListTypeName>, fields : Array<ListFields>, completionHandler: @escaping (Result<Array<ListModel>, GCError>) -> Void) {
+    public static func getUsersList(referenceCode : String = "me",skip:Int = 0, take:Int = 0, listTypes:Array<ListTypeName>, fields : Array<ListFields>, completionHandler: @escaping (Result<Array<ListModel>, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "users/\(referenceCode)/lists")
         query.add(fields: fields)
         query.addTypes(fields: listTypes)
@@ -105,7 +105,7 @@ class GCList: NSObject {
         }
     }
 
-    static func getPocketQuery(referenceCode:String, skip:Int = 0, take:Int = 50, fields : Array<GeocacheFields>, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
+    public static func getPocketQuery(referenceCode:String, skip:Int = 0, take:Int = 50, fields : Array<GeocacheFields>, completionHandler: @escaping (Result<Array<GeocacheModel>, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "lists/\(referenceCode)/geocaches")
         query.add(skip: skip, take: take)
         query.add(fields: fields)
@@ -121,7 +121,7 @@ class GCList: NSObject {
         }
     }
 
-    static func getPocketQueryZipped(referenceCode:String, completionHandler: @escaping (Result<Data, GCError>) -> Void) {
+    public static func getPocketQueryZipped(referenceCode:String, completionHandler: @escaping (Result<Data, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "lists/\(referenceCode)/geocaches/zipped")
 
         GCApi.shared().getData(url: query, parseClass: Data.self, payload: "") { (result) in
@@ -137,7 +137,7 @@ class GCList: NSObject {
     }
 
 
-    static func addCachesToList(caches : Array<String>, listGuid:String, completionHandler: @escaping (Result<BulkResponseObject, GCError>) -> Void) {
+    public static func addCachesToList(caches : Array<String>, listGuid:String, completionHandler: @escaping (Result<BulkResponseObject, GCError>) -> Void) {
         let query = GCQueryBuilder(basePath: "lists/\(listGuid)/bulkgeocaches")
         GCApi.shared().getData(url: query, parseClass: BulkResponseObject.self, payload: caches) { (result) in
             switch result {

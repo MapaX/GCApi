@@ -9,7 +9,7 @@
 import UIKit
 import AppAuth
 
-enum GCError: Error {
+public enum GCError: Error {
     case badURL
     case missingToken
     case notFound
@@ -32,7 +32,7 @@ struct ApiParams {
     let tokenEndpoint:String
 }
 
-struct UnmapperError: Codable {
+public struct UnmapperError: Codable {
     var statusCode: Int?
     var statusMessage: String?
     var errorMessage: String?
@@ -89,7 +89,7 @@ public enum HTTPMethod: String {
         return networkManager
     }()
 
-    @objc var currentAuthorizationFlow: OIDExternalUserAgentSession?
+    @objc public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     private var authState: OIDAuthState?
     private var oidConfiguration: OIDServiceConfiguration?
 
@@ -106,7 +106,7 @@ public enum HTTPMethod: String {
 
     private var sessionManager: URLSession?
 
-    static func gcapiPlist() -> Dictionary<String, Any>? {
+    static public func gcapiPlist() -> Dictionary<String, Any>? {
         guard let path = Bundle.main.path(forResource: "GCApiKeys", ofType: "plist"),
             let myDict = NSDictionary(contentsOfFile: path) as? Dictionary<String, Any> else {
                 assert(false, "Plist missing")
@@ -115,7 +115,7 @@ public enum HTTPMethod: String {
         return myDict
     }
 
-    func configure(apiType: ApiType){
+    public func configure(apiType: ApiType){
         self.apiType = apiType
         guard let type = GCApi.shared().apiType else{
             assert(false, "Apitype is not set")
@@ -132,13 +132,13 @@ public enum HTTPMethod: String {
         oidConfiguration = OIDServiceConfiguration(authorizationEndpoint: authorizeEndpoint, tokenEndpoint: tokenEndpoint, registrationEndpoint: tokenEndpoint)
     }
 
-    func cancelRequests() {
+    public func cancelRequests() {
         for task in self.onGoingDatatasks.allObjects  {
             task.cancel()
         }
     }
 
-    @objc class func shared() -> GCApi {
+    @objc public class func shared() -> GCApi {
         if sharedNetworkManager.sessionManager == nil {
             let customConfiguration = URLSessionConfiguration.default
             if #available(iOS 13.0, *) {
@@ -166,7 +166,7 @@ public enum HTTPMethod: String {
         return UIApplication.shared.keyWindow?.rootViewController
     }
 
-    func authorize(completionHandler: @escaping (Result<Bool, GCError>) -> Void) {
+    public func authorize(completionHandler: @escaping (Result<Bool, GCError>) -> Void) {
         guard let viewController = resolveViewController() else {
             assert(false, "Viewcontroller was not found")
             return
@@ -199,7 +199,7 @@ public enum HTTPMethod: String {
         }
     }
 
-    @objc func logout() {
+    @objc public func logout() {
         self.authState = nil
         UserDefaults.standard.set(nil, forKey: GCApi.authStateKey)
         UserDefaults.standard.synchronize()

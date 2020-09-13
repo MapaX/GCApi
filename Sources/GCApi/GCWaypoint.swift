@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum UserWaypointFields : String, CaseIterable {
+public enum UserWaypointFields : String, CaseIterable {
     case referenceCode = "referenceCode"
     case description = "description"
     case isCorrectedCoordinates = "isCorrectedCoordinates"
@@ -16,7 +16,7 @@ enum UserWaypointFields : String, CaseIterable {
     case geocacheCode = "geocacheCode"
 }
 
-enum AdditionalWaypointFields : String, CaseIterable {
+public enum AdditionalWaypointFields : String, CaseIterable {
     case name = "name"
     case description = "description"
     case typeId = "typeId"
@@ -25,14 +25,14 @@ enum AdditionalWaypointFields : String, CaseIterable {
     case coordinates = "coordinates"
 }
 
-enum AttributeFields : String, CaseIterable {
+public enum AttributeFields : String, CaseIterable {
     case id = "id"
     case name = "name"
     case isOn = "isOn"
     case imageUrl = "imageUrl"
 }
 
-enum AttributeTypeFields : String, CaseIterable {
+public enum AttributeTypeFields : String, CaseIterable {
     case id = "id"
     case name = "name"
     case hasYesOption = "hasYesOption"
@@ -40,16 +40,16 @@ enum AttributeTypeFields : String, CaseIterable {
     case yesIconUrl = "yesIconUrl"
 }
 
-class AttributeTypeModel: Codable {
-    var id: Int?             //    integer    identifier of the attribute
-    var name: String?        //    string    display name of the attribute
-    var hasYesOption: Bool?  //   boolean    flag for if the attribute can be set to isOn = true
-    var hasNoOption: Bool? //   boolean    flag for if the attribute can be set to isOn = false
-    var yesIconUrl: String? //   string    image url for the attribute if isOn = true
-    var noIconUrl: String? //   string    image url for the attribute if isOn = false
-    var notChosenIconUrl: String? //    string    image url for the attribute if not chosen
+public class AttributeTypeModel: Codable {
+    public var id: Int?             //    integer    identifier of the attribute
+    public var name: String?        //    string    display name of the attribute
+    public var hasYesOption: Bool?  //   boolean    flag for if the attribute can be set to isOn = true
+    public var hasNoOption: Bool? //   boolean    flag for if the attribute can be set to isOn = false
+    public var yesIconUrl: String? //   string    image url for the attribute if isOn = true
+    public var noIconUrl: String? //   string    image url for the attribute if isOn = false
+    public var notChosenIconUrl: String? //    string    image url for the attribute if not chosen
 }
 
-class GCWaypoint: NSObject {
+public class GCWaypoint: NSObject {
 
 }
