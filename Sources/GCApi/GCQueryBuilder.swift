@@ -107,7 +107,7 @@ class GCQueryBuilder: NSObject {
     }
 
     //expand=geocachelogs:5,trackables:
-    func add(logs:Int = 0, logFields:Array<LogFieds> = LogFieds.allCases, trackables: Int = 0, trackableFields:Array<TrackableFieds> = TrackableFieds.allCases, userwaypoints: Int = 0, userWaypointFields:Array<UserWaypointFields> = UserWaypointFields.allCases,) {
+    func add(logs:Int = 0, logFields:Array<LogFieds> = LogFieds.allCases, trackables: Int = 0, trackableFields:Array<TrackableFieds> = TrackableFieds.allCases, userwaypoints: Int = 0, userWaypointFields:Array<UserWaypointFields> = UserWaypointFields.allCases) {
         guard var fieldsString = getParameter(param: "fields") else {
             assert(false, "You must first call add fields")
             return
