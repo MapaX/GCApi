@@ -109,7 +109,7 @@ public enum CoordinatesFields : String, CaseIterable {
 }
 
 @objcMembers public class CoordinatesModel: NSObject, Codable {
-    init(lat: Decimal, long: Decimal) {
+    public init(lat: Decimal, long: Decimal) {
         latitude = lat
         longitude = long
     }
@@ -229,7 +229,7 @@ public class AdditionalWaypointModel: Codable {
 
 
 public class UserWaypointModel : Codable {
-    init(coordinateDescription: String, coordinatesModel: CoordinatesModel, cacheCode: String) {
+    public init(coordinateDescription: String, coordinatesModel: CoordinatesModel, cacheCode: String) {
         description = coordinateDescription
         coordinates = coordinatesModel
         geocacheCode = cacheCode

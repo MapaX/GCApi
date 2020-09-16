@@ -33,9 +33,9 @@ struct ApiParams {
 }
 
 public struct UnmapperError: Codable {
-    var statusCode: Int?
-    var statusMessage: String?
-    var errorMessage: String?
+    public var statusCode: Int?
+    public var statusMessage: String?
+    public var errorMessage: String?
 }
 
 public enum ApiType {
@@ -152,7 +152,8 @@ public enum HTTPMethod: String {
 
         return sharedNetworkManager
     }
-    func isAuthorized() -> Bool {
+    
+    public func isAuthorized() -> Bool {
         if self.authState == nil{
             _ = loadState()
         }
