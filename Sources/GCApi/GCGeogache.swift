@@ -300,7 +300,7 @@ public class GCGeogache: NSObject {
         let query = GCQueryBuilder(basePath: "geocaches/\(cacheCode)")
         query.addIsLite(isLite: false)
         query.add(fields: fields)
-        query.add(logs: logs, trackables: trackables)
+        query.add(logs: logs, trackables: trackables, userwaypoints: userwaypoints)
         GCApi.shared().getData(url: query, parseClass: GeocacheModel.self, payload: "") { (result) in
             switch result {
             case .failure(let error):
@@ -318,7 +318,7 @@ public class GCGeogache: NSObject {
         query.addRefCodes(refCodes: cacheCodes)
         query.addIsLite(isLite: isLite)
         query.add(fields: fields)
-        query.add(logs: logs, trackables: trackables)
+        query.add(logs: logs, trackables: trackables, userwaypoints: userwaypoints)
         GCApi.shared().getData(url: query, parseClass: Array<GeocacheModel>.self, payload: "") { (result) in
             switch result {
             case .failure(let error):
@@ -338,7 +338,7 @@ public class GCGeogache: NSObject {
         query.add(fields: fields)
         query.add(skip: skip, take: take)
         query.addType(fields: cacheTypes)
-        query.add(logs: logs, trackables: trackables)
+        query.add(logs: logs, trackables: trackables, userwaypoints: userwaypoints)
         GCApi.shared().getData(url: query, parseClass: Array<GeocacheModel>.self, payload: "") { (result) in
             switch result {
             case .failure(let error):
@@ -375,7 +375,7 @@ public class GCGeogache: NSObject {
             query.add(favourite: favPoints)
         }
         query.add(fields: fields)
-        query.add(logs: logs, trackables: trackables)
+        query.add(logs: logs, trackables: trackables, userwaypoints: userwaypoints)
         query.add(skip: skip, take: take)
 
 

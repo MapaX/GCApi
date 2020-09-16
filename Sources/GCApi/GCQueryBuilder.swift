@@ -123,7 +123,7 @@ class GCQueryBuilder: NSObject {
             expandStrings.append("trackables:\(trackables)")
         }
         if userwaypoints > 0 {
-            fieldsString.append(contentsOf: ",userwaypoints[\(createFieldArray(fields: userWaypointFields))]")
+            //fieldsString.append(contentsOf: ",userwaypoints[\(createFieldArray(fields: userWaypointFields))]")
             expandStrings.append("userwaypoints:\(trackables)")
         }
         if expandStrings.count > 0 {
